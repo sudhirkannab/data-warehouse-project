@@ -37,7 +37,7 @@ BEGIN
 				WHEN UPPER(TRIM(cst_marital_status)) = 'S' THEN 'Single'
 				WHEN UPPER(TRIM(cst_marital_status)) = 'M' THEN 'Married'
 				ELSE 'n/a'
-			END AS cst_marital_status, -- Normalize marital status values to readable format
+			END AS cst_marital_status, 
 			CASE 
 				WHEN UPPER(TRIM(cst_gndr)) = 'F' THEN 'Female'
 				WHEN UPPER(TRIM(cst_gndr)) = 'M' THEN 'Male'
@@ -75,8 +75,8 @@ BEGIN
 		SELECT
 			prd_id,
 			prd_key,
-			SUBSTRING(prd_key, 7, LEN(prd_key)) AS prd_subct_key,  -- Extract product key
-			REPLACE(SUBSTRING(prd_key, 1, 5), '-', '_') AS prd_cat_key, -- Extract category ID
+			SUBSTRING(prd_key, 7, LEN(prd_key)) AS prd_subct_key, 
+			REPLACE(SUBSTRING(prd_key, 1, 5), '-', '_') AS prd_cat_key, 
 			prd_nm,
 			ISNULL(prd_cost, 0) AS prd_cost,
 			CASE 
@@ -132,12 +132,12 @@ BEGIN
 				WHEN sls_sales IS NULL OR sls_sales <= 0 OR sls_sales != sls_quantity * ABS(sls_price) 
 					THEN sls_quantity * ABS(sls_price)
 				ELSE sls_sales
-			END AS sls_sales, -- Recalculate sales if original value is missing or incorrect
+			END AS sls_sales,
 			sls_quantity,
 			CASE 
 				WHEN sls_price IS NULL OR sls_price <= 0 
 					THEN sls_sales / NULLIF(sls_quantity, 0)
-				ELSE sls_price  -- Derive price if original value is invalid
+				ELSE sls_price  
 			END AS sls_price
 		FROM bronze.crm_sales_details;
         SET @end_time = GETDATE();
@@ -156,7 +156,7 @@ BEGIN
 		)
 		SELECT
 			CASE
-				WHEN cid LIKE 'NAS%' THEN SUBSTRING(cid, 4, LEN(cid)) -- Remove 'NAS' prefix if present
+				WHEN cid LIKE 'NAS%' THEN SUBSTRING(cid, 4, LEN(cid)) 
 				ELSE cid
 			END AS cid, 
 			CASE
@@ -167,7 +167,7 @@ BEGIN
 				WHEN UPPER(TRIM(gen)) IN ('F', 'FEMALE') THEN 'Female'
 				WHEN UPPER(TRIM(gen)) IN ('M', 'MALE') THEN 'Male'
 				ELSE 'n/a'
-			END AS gen -- Normalize gender values and handle unknown cases
+			END AS gen 
 		FROM bronze.erp_cust_az12;
 	    SET @end_time = GETDATE();
         PRINT '>> Load Duration: ' + CAST(DATEDIFF(SECOND, @start_time, @end_time) AS NVARCHAR) + ' seconds';
@@ -193,7 +193,7 @@ BEGIN
 				WHEN TRIM(cntry) IN ('US', 'USA') THEN 'United States'
 				WHEN TRIM(cntry) = '' OR cntry IS NULL THEN 'n/a'
 				ELSE TRIM(cntry)
-			END AS cntry -- Normalize and Handle missing or blank country codes
+			END AS cntry 
 		FROM bronze.erp_loc_a101;
 	    SET @end_time = GETDATE();
         PRINT '>> Load Duration: ' + CAST(DATEDIFF(SECOND, @start_time, @end_time) AS NVARCHAR) + ' seconds';
