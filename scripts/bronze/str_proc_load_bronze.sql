@@ -1,4 +1,16 @@
-exec bronze.load_bronze
+/*
+=============================================================
+Bronze Layer Load Procedure
+=============================================================
+
+IMPORTANT:
+Update the CSV file paths below before executing this procedure.
+
+Example:
+C:\YourProjectPath\datasets\source_crm\cust_info.csv
+
+=============================================================
+*/
 create or alter procedure bronze.load_bronze as
 begin
 	declare @start_time datetime, @end_time datetime;
@@ -17,7 +29,7 @@ begin
 
 		print'Inserting data into bronze.crm_cust_info';
 		bulk insert bronze.crm_cust_info
-		from 'C:\Users\ACER\OneDrive\Desktop\databaraa\sql-data-warehouse-project\datasets\source_crm\cust_info.csv'
+		from 'C:\Users\ACER\OneDrive\Desktop\data-warehouse-project\datasets\source_crm\cust_info.csv'
 		with (
 			firstrow = 2,
 			fieldterminator = ',',
@@ -31,7 +43,7 @@ begin
 
 		print'Inserting data into bronze.crm_prd_info';
 		bulk insert bronze.crm_prd_info
-		from 'C:\Users\ACER\OneDrive\Desktop\databaraa\sql-data-warehouse-project\datasets\source_crm\prd_info.csv'
+		from 'C:\Users\ACER\OneDrive\Desktop\data-warehouse-project\datasets\source_crm\prd_info.csv'
 		with (
 			firstrow = 2,
 			fieldterminator = ',',
@@ -43,7 +55,7 @@ begin
 
 		print'Inserting data into bronze.crm_sales_details';
 		bulk insert bronze.crm_sales_details
-		from 'C:\Users\ACER\OneDrive\Desktop\databaraa\sql-data-warehouse-project\datasets\source_crm\sales_details.csv'
+		from 'C:\Users\ACER\OneDrive\Desktop\data-warehouse-project\datasets\source_crm\sales_details.csv'
 		with (
 			firstrow = 2,
 			fieldterminator = ',',
@@ -59,7 +71,7 @@ begin
 
 		print'Inserting data into bronze.erp_cust_az12';
 		bulk insert bronze.erp_cust_az12
-		from 'C:\Users\ACER\OneDrive\Desktop\databaraa\sql-data-warehouse-project\datasets\source_erp\CUST_AZ12.csv'
+		from 'C:\Users\ACER\OneDrive\Desktop\data-warehouse-project\datasets\source_erp\CUST_AZ12.csv'
 		with (
 			firstrow = 2,
 			fieldterminator = ',',
@@ -71,7 +83,7 @@ begin
 
 		print'Inserting data into bronze.erp_loc_a101';
 		bulk insert bronze.erp_loc_a101
-		from 'C:\Users\ACER\OneDrive\Desktop\databaraa\sql-data-warehouse-project\datasets\source_erp\LOC_A101.csv'
+		from 'C:\Users\ACER\OneDrive\Desktop\data-warehouse-project\datasets\source_erp\LOC_A101.csv'
 		with (
 			firstrow = 2,
 			fieldterminator = ',',
@@ -83,7 +95,7 @@ begin
 
 		print'Inserting data into bronze.erp_px_cat_v1g2';
 		bulk insert bronze.erp_px_cat_v1g2
-		from 'C:\Users\ACER\OneDrive\Desktop\databaraa\sql-data-warehouse-project\datasets\source_erp\PX_CAT_G1V2.csv'
+		from 'C:\Users\ACER\OneDrive\Desktop\data-warehouse-project\datasets\source_erp\PX_CAT_G1V2.csv'
 		with (
 			firstrow = 2,
 			fieldterminator = ',',
