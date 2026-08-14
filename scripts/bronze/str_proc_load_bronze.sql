@@ -9,8 +9,12 @@ Update the CSV file paths below before executing this procedure.
 Example:
 C:\YourProjectPath\datasets\source_crm\cust_info.csv
 
+once created exectute
+EXEC bronze.load_bronze;
 =============================================================
 */
+EXEC bronze.load_bronze; --- after create procedure
+
 create or alter procedure bronze.load_bronze as
 begin
 	declare @start_time datetime, @end_time datetime;
