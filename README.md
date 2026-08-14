@@ -8,6 +8,11 @@ The project follows a **Bronze → Silver → Gold** architecture to move raw CS
 
 The final Gold layer provides customer, product, and sales data that can be used for reporting and business analysis.
 
+## Project Objective
+
+The goal was to transform raw CRM and ERP CSV data into a structured data warehouse that can support **business reporting and analytics.**
+
+The pipeline handles data ingestion, data quality issues, transformation, integration, and dimensional modeling.
 ## Architecture
 
 ```text
