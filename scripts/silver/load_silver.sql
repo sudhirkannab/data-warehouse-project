@@ -1,4 +1,6 @@
-
+EXEC silver.load_silver
+---execute after create procedure----
+	
 CREATE OR ALTER PROCEDURE silver.load_silver AS
 BEGIN
     DECLARE @start_time DATETIME, @end_time DATETIME, @batch_start_time DATETIME, @batch_end_time DATETIME; 
@@ -199,9 +201,9 @@ BEGIN
 		
 		-- Loading erp_px_cat_g1v2
 		SET @start_time = GETDATE();
-		PRINT '>> Truncating Table: silver.erp_px_cat_g1v2';
+		PRINT '>> Truncating Table: silver.erp_px_cat_v1g2';
 		TRUNCATE TABLE silver.erp_px_cat_g1v2;
-		PRINT '>> Inserting Data Into: silver.erp_px_cat_g1v2';
+		PRINT '>> Inserting Data Into: silver.erp_px_cat_v1g2';
 		INSERT INTO silver.erp_px_cat_v1g2 (
 			id,
 			cat,
