@@ -42,7 +42,7 @@ BEGIN
 				WHEN UPPER(TRIM(cst_gndr)) = 'F' THEN 'Female'
 				WHEN UPPER(TRIM(cst_gndr)) = 'M' THEN 'Male'
 				ELSE 'n/a'
-			END AS cst_gndr, -- Normalize gender values to readable format
+			END AS cst_gndr, 
 			cst_create_date
 		FROM (
 			SELECT
@@ -51,7 +51,7 @@ BEGIN
 			FROM bronze.crm_cust_info
 			WHERE cst_id IS NOT NULL
 		) t
-		WHERE flag_last = 1; -- Select the most recent record per customer
+		WHERE flag_last = 1; 
 		SET @end_time = GETDATE();
         PRINT '>> Load Duration: ' + CAST(DATEDIFF(SECOND, @start_time, @end_time) AS NVARCHAR) + ' seconds';
         PRINT '>> -------------';
@@ -85,12 +85,12 @@ BEGIN
 				WHEN UPPER(TRIM(prd_line)) = 'S' THEN 'Other Sales'
 				WHEN UPPER(TRIM(prd_line)) = 'T' THEN 'Touring'
 				ELSE 'n/a'
-			END AS prd_line, -- Map product line codes to descriptive values
+			END AS prd_line, 
 			CAST(prd_start_dt AS DATE) AS prd_start_dt,
 			CAST(
 				LEAD(prd_start_dt) OVER (PARTITION BY prd_key ORDER BY prd_start_dt) - 1 
 				AS DATE
-			) AS prd_end_dt -- Calculate end date as one day before the next start date
+			) AS prd_end_dt 
 		FROM bronze.crm_prd_info;
         SET @end_time = GETDATE();
         PRINT '>> Load Duration: ' + CAST(DATEDIFF(SECOND, @start_time, @end_time) AS NVARCHAR) + ' seconds';
@@ -199,7 +199,7 @@ BEGIN
         PRINT '>> Load Duration: ' + CAST(DATEDIFF(SECOND, @start_time, @end_time) AS NVARCHAR) + ' seconds';
         PRINT '>> -------------';
 		
-		-- Loading erp_px_cat_v1g2
+		
 		SET @start_time = GETDATE();
 		PRINT '>> Truncating Table: silver.erp_px_cat_v1g2';
 		TRUNCATE TABLE silver.erp_px_cat_g1v2;
